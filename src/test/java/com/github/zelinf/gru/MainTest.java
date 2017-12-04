@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Properties;
@@ -23,10 +24,12 @@ public class MainTest {
     @Before
     void setUp() throws Exception {
         Path tempDir = Files.createTempDirectory("gru-test");
+
         try (Git git = cloneRepo()) {
-            // TODO
         }
     }
+
+    private Path repoDir;
 
     @Test
     void main() {

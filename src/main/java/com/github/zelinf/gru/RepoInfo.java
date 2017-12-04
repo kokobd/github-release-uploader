@@ -7,6 +7,7 @@ import org.eclipse.jgit.transport.RemoteConfig;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,8 +19,18 @@ public class RepoInfo {
         }
     }
 
+    public RepoInfo() {
+        this(FileSystems.getDefault().getPath("."));
+    }
+
+    public RepoInfo(Path repoDir) {
+        this.repoDir = repoDir;
+    }
+
+    private Path repoDir;
+
     public Coordinates getRepoCoordinates() throws Exception {
-        try (Git git = Git.open(FileSystems.getDefault().getPath(".").toFile())) {
+        try (Git git = Git.open(repoDir.toFile())) {
 
             Optional<String> fullRepoName = Optional.empty();
             Throwable cause = null;

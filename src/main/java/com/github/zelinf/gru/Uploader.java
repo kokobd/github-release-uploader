@@ -22,12 +22,18 @@ public class Uploader {
 
     private Github github;
 
+    private Path repoDir;
+
+    public void setRepoDir(Path repoDir) {
+        this.repoDir = repoDir;
+    }
+
     /**
      * @return Whether the upload has succeeded.
      */
     public boolean upload() {
         try {
-            RepoInfo config = new RepoInfo();
+            RepoInfo config = new RepoInfo(repoDir);
             Repo repo = github.repos().get(config.getRepoCoordinates());
             Release release = getRelease(repo.releases(), tag);
             uploadFile(release);
