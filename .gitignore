@@ -1,0 +1,4 @@
+.idea/
+gradle/
+.gradle/
+src/test/resources/test-config.properties
