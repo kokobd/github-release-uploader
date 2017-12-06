@@ -10,6 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -93,8 +95,12 @@ public class MainTest {
 
                         byte[] fileContent = Files.readAllBytes(assetFile);
                         byte[] assetContent = new byte[fileContent.length];
-                        //noinspection ResultOfMethodCallIgnored
-                        releaseAsset.raw().read(assetContent);
+
+                        URL downloadUrl = new URL(releaseAsset.json().getString("browser_download_url"));
+                        try (InputStream in = downloadUrl.openStream()) {
+                            //noinspection ResultOfMethodCallIgnored
+                            in.read(assetContent);
+                        }
 
                         Assert.assertArrayEquals(fileContent, assetContent);
                     }
@@ -112,7 +118,7 @@ public class MainTest {
         try {
             Release release = releases.find(tag);
             release.delete();
-        } catch (IOException ignored) {
+        } catch (IOException | IllegalArgumentException ignored) {
         }
     }
 

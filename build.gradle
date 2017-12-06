@@ -19,10 +19,10 @@ repositories {
 
 sourceSets {
     main {
-        output.resourcesDir = "build/classes/java/main/resources"
+        output.resourcesDir = "build/classes/main/resources"
     }
     test {
-        output.resourcesDir = "build/classes/java/test/resources"
+        output.resourcesDir = "build/classes/test/resources"
     }
 }
 
